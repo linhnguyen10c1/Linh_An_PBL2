@@ -1,8 +1,8 @@
 #include <iostream>
 #include <string>
-#include "class_patient.cpp"
+#include "patient.cpp"
 //#include "class_doctor.cpp"
-#include "class_linklist.cpp"
+#include "linklist.cpp"
 
 using namespace std;
 

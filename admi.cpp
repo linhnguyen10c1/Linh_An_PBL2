@@ -2,7 +2,7 @@
 #include <string>
 #include "patient.cpp"
 //#include "class_doctor.cpp"
-#include "class_linklist.cpp"
+#include "linklist.cpp"
 
 using namespace std;
 

@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include "class_linklist.cpp"
+#include "linklist.cpp"
 
 using namespace std;
 

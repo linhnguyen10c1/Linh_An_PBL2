@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include "class_person.cpp"
+#include "person.cpp"
 
 using namespace std;
 

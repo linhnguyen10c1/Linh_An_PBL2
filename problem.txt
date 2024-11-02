@@ -1,0 +1,6 @@
+Hỏi cách tư duy của anh Quân khi code một bài toán 
+Cách dùng git, làm sao hai đứa cùng code thay vì cứ phải tải về
+Làm sao để chạy file nhiều cùng lúc
+Hỏi về phần delete, mật khẩu ID
+Thêm một thuộc tính isDeleted = faule 
+Phần login

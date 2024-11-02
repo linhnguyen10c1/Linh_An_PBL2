@@ -1,0 +1,62 @@
+1. administrator
+   - doctor
+     + add
+     + display
+     + search 
+     + edit
+     + vô hiệu hóa
+     + thống kê // nâng cấp lên sau
+     + exit
+
+   - patient
+     + add 
+     + display
+     + search
+     + edit
+     + delete
+     + display record of patient
+     + thống kê // nâng cấp lên sau
+     + exit
+
+   - medicine
+     + add 
+     + display 
+     + search 
+     + edit 
+     + delete
+     + display
+     + thống kê
+   - exit
+
+2. doctor
+   - Manage your
+     + display of your information
+     + edit your information
+
+   - Patient:
+     + search record_patient
+     + make appointment again
+
+   -Patient_record:
+     + general
+       . add 
+       . update
+       . search
+       . delete
+     + check_detail
+       . add checking
+       . display history
+     + prescription_detail
+       . add prescription
+       . display history
+      
+3. patient
+    - your information:
+      1. display
+      2. edit
+    - record
+      1. display result to general from detail
+      2. make payment
+      3. display appointment again
+
+luu y phần xóa id của bệnh nhân còn lien quan den nhieu phan

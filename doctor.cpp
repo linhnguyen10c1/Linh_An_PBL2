@@ -1,6 +1,6 @@
 
 //#include <ionip>
-#include "class_person.cpp"
+#include "person.cpp"
 
 class Doctor : public Person {
 private:

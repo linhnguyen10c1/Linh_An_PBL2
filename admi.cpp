@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 #include "patient.cpp"
-//#include "class_doctor.cpp"
+//#include "doctor.cpp"
 #include "linklist.cpp"
 
 using namespace std;

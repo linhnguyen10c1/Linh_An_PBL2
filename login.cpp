@@ -1,25 +1,171 @@
 #include <iostream>
+#include "admin.cpp"
+#include "linklist.cpp"
+#include "doctor.cpp"
 using namespace std;
 
-void login(int n){
-  string name;
-  cout << "User name: ";
-  cin >> name;
-  long long password;
-  cout << "Password: ";
-  cin >> password;
-  if(n == 1){
-  // dung chuc nang search 
-      // nếu tồn tại
-      adminstrator_function();
-      // ko tồn tại thì nhập lại
-      // ko thì out ra
+template <typename T>
+bool is_exist_in_file(long long ID, string password, const string& filename){
+  LinkedList<T> list;
+  read_data_from_file(list, filename);
+  return list.search(ID, password);
+}
+
+template <typename T>
+void module_menu_admin(LinkedList<T>& list,const string& filename){
+	read_data_from_file(list, filename);
+	T::set_id = list.get_id_from_file();
+	int choice;
+	do {
+		cout << "1. Add an object" << endl
+         << "2. Display list objects"<< endl
+         << "3. Search an object" << endl 
+		     << "4. Update an object"<< endl
+         << "5. Delete an object" << endl
+         << "6. Exit" << endl;
+
+		cout << "Choose an option: ";
+		cin >> choice;
+		cin.ignore();
+		
+		switch (choice){
+			case 1:{
+				T item;
+				item.set_data();
+				list.add(item);
+				write_data_to_file(list,filename);
+				cout << "Object added successfully" << endl;
+				break;
+			}
+			case 2:{
+				list.display_list();
+				break;
+			}
+			case 3:{
+				long long id;
+				cout << "Enter ID you want search: ";
+				cin >> id;
+				list.search(id);
+				break;
+			}
+			case 4:{
+				long long id;
+				cout << "Enter ID you want update: ";
+				cin  >> id;
+				list.update(id);
+				write_data_to_file(list,filename);
+				break;
+			}
+			case 5:{
+				long long id;
+				cout << "Enter ID you want delete: ";
+				cin >> id;
+				list.remove(id);
+				write_data_to_file(list,filename);
+				// but when delete a doctor, but doctor have data
+				// in another file? how solve problem
+				break;
+			}
+			case 6: {
+				
+			}
+		}
+	} while(choice != 6);
+}
+
+void menu(int role){
+  if(role == 1){
+  //LinkedList<Patient> patient_list;
+   LinkedList<Doctor> doctor_list;
+	//Link_list<Medicine> medicine_list;
+	int choice;
+	while(choice!=4){
+		cout<<"1. Manage doctors"<< endl<<"2. Manage patients"<< endl << "3. Manage medicines "<<endl<<"4. exit"<<endl  ;
+		cout << "Choose an option: ";
+		cin>>choice;
+		cin.ignore();
+		switch (choice){
+			case 1:
+				 module_menu_admin(doctor_list,"doctors.txt");
+				break;
+			case 2:
+				//module_menu(patient_list,"patients.txt");
+				break;
+			case 3:
+				//module_menu(medicine_list,"medicines.txt");
+				break;
+			case 4: 
+				break;
+		}
+	}
+  }
+
+  else if(role == 2){
 
   }
-  else if (n == 2){
-       
-  }
-  else if (n == 3){
+
+  else if(role == 3){
 
   }
+}
+
+void login()
+{
+  int role;
+  do
+  {
+    long long ID;
+    string password;
+    cout << "------LOGIN------" << endl;
+    cout << "1. You are administrator\n"
+         << "2. You are doctor\n"
+         << "3. You are patient\n"
+         << "4. Exit\n";
+    cout << "Choose your option: ";
+    cin >> role;
+    cout << "Enter your ID: ";
+    cin >> ID;
+    cout << "Enter your password: ";
+    cin >> password;
+    switch (role)
+    {
+    case 1:
+    {
+      if (is_exist_in_file<Admin>(ID, password,"admins.txt"))
+        menu(1);
+      else
+        break;
+      break;
+    }
+    case 2:
+    {
+      if (is_exist_in_file<Doctor>(ID, password, "doctors.txt"))
+        menu(2);
+
+      else
+        break;
+      break;
+    }
+    case 3:
+    {
+      // if (is_exist_in_file<Patient>(ID, password))
+      //   menu(3);
+      // else
+      //   break;
+      // break;
+    }
+    case 4:{
+
+    }
+    }
+
+  } while (role != 4);
+}
+
+int main(){
+  LinkedList<Admin> list;
+  Admin ad;
+  list.add(ad);
+  write_data_to_file(list, "admins.txt");
+  login();
 }

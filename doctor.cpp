@@ -7,9 +7,6 @@ private:
 
     long long id_doctor;
     int experience_year;
-    static int role;
-    bool is_delete = false;
-    
 
 public:
     static long long set_id;
@@ -22,11 +19,10 @@ public:
     void write_a_object_to_file(ofstream &file);
 
     long long get_id() const { return id_doctor; }
-    string get_name() const{return name;}
-    string get_phone() const{return phone;}
+    string get_password() const{return password;}
 
 };
-int Doctor:: role = 4;
+
 long long Doctor::set_id = 1000000;
 
 void Doctor::set_data_general() {
@@ -38,8 +34,11 @@ void Doctor::set_data_general() {
 
 void Doctor::set_data() {
         id_doctor = set_id++;
-        set_data_general();
-        cout << "Doctor has ID: " << id_doctor << endl;
+        Person::set_person();
+        cout << "Enter Experience Years: ";
+        cin >> experience_year;
+        cin.ignore();
+        cout << "Doctor has ID: " << id_doctor << " password: " << password << endl;
     }
 
 void Doctor::display() {
@@ -66,6 +65,10 @@ void Doctor::read_a_object_from_file(const string &line) {
     // Read and convert experience_year
     getline(ss, item, ',');
     experience_year = stoi(item);
+    getline(ss, password, ',');
+    getline(ss, item, ',');
+    is_delete = (item == "1");
+
 }
 
 void Doctor::write_a_object_to_file(ofstream &file) {
@@ -76,7 +79,9 @@ void Doctor::write_a_object_to_file(ofstream &file) {
              << gender << "," 
              << phone << "," 
              << address << "," 
-             << experience_year 
+             << experience_year << ","
+             << password << ","
+             << (is_delete ? "1" : "0")
              << endl;
     } else {
         cerr << "Error: File is not open." << endl;

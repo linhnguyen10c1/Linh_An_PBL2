@@ -29,6 +29,8 @@ public:
     // search cho phone, name
     void search(string name) const;
     void update(long long id);
+    // check xem tồn tại hay không
+    int search(long long id, string password);
 };
 
 template <typename T>
@@ -97,9 +99,9 @@ void LinkedList<T>::search(long long id) const{
         Node<T>* current = head;
         if(current == nullptr){
             cout << "List empty" << endl;
+            return;
         }
         while (current) {
-            current = current->next;
             if(current->data.get_id() == id){
                 current->data.display();
                 return;
@@ -124,6 +126,26 @@ void LinkedList<T>::search(string name) const{
             current = current->next;
         }
     }
+
+// check xem co ton tai hay ko
+template <typename T>
+int LinkedList<T>::search(long long id, string password){
+    Node<T>* current = head;
+    if(current == nullptr){
+        cout << "List empty" << endl;
+        return 0;
+    }
+    while (current) {
+            if(current->data.get_id() == id && current->data.get_password()== password
+                                            && current->data.get_is_delete() == false){
+                return 1;
+            }
+            current = current->next;
+        }
+        cout << "Item don't exsit" << endl;
+        return 0;
+
+}
 template <typename T>
 long long LinkedList<T>::get_id_from_file(){
     Node<T> *current = head;

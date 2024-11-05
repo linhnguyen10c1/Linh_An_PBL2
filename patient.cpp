@@ -1,42 +1,16 @@
-#include <iostream>
-#include <string>
-#include "person.cpp"
 
-using namespace std;
+#include "patient.h"
 
-class Patient : public Person
-{
-private:
-    long long id_patient;
-
-public:
-    static long long set_id;
-    // use when edit
-    void set_data_general();
-    // use when add
-    void set_data();
-    void display();
-    void read_a_object_from_file(const string &line);
-    void write_a_object_to_file(ofstream &file);
-
-    long long get_id() const { return id_patient; }
-    string get_name() const { return name; }
-    string get_phone() const { return phone; }
-};
 long long Patient::set_id = 2000000;
-
-void Patient::set_data_general(){
-    Person::set_person();
-}
 
 void Patient::set_data()
 {
     id_patient = set_id++;
-    set_data_general();
-    cout << "Patient has ID: " << id_patient << endl;
+    Person::set_person();
+    cout << "Patient has ID: " << id_patient << " ,password: " << password << endl;
 }
 
-void Patient::display()
+void Patient::display() const
 {
     cout << "Patient ID: " << id_patient << ", ";
     Person::display();
@@ -58,7 +32,9 @@ void Patient::read_a_object_from_file(const string &line)
     getline(ss, gender, ',');
     getline(ss, phone, ',');
     getline(ss, address, ',');
-
+    getline(ss, password, ',');
+    getline(ss, item, ',');
+    is_delete = (item == "1");
 }
 
 void Patient::write_a_object_to_file(ofstream &file) {
@@ -69,6 +45,8 @@ void Patient::write_a_object_to_file(ofstream &file) {
              << gender << "," 
              << phone << "," 
              << address << "," 
+             << password << ","
+             << (is_delete ? "1" : "0")
              << endl;
     } else {
         cerr << "Error: File is not open." << endl;

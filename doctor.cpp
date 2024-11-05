@@ -1,36 +1,10 @@
 
 //#include <ionip>
-#include "person.cpp"
-
-class Doctor : public Person {
-private:
-
-    long long id_doctor;
-    int experience_year;
-
-public:
-    static long long set_id;
-    // use when edit
-    void set_data_general();
-    // use when add 
-    void set_data();
-    void display();
-    void read_a_object_from_file(const string &line);
-    void write_a_object_to_file(ofstream &file);
-
-    long long get_id() const { return id_doctor; }
-    string get_password() const{return password;}
-
-};
+#include "doctor.h"
 
 long long Doctor::set_id = 1000000;
 
-void Doctor::set_data_general() {
-        Person::set_person();
-        cout << "Enter Experience Years: ";
-        cin >> experience_year;
-        cin.ignore();
-    }
+// còn phần cập nhật năm kịnh nghiệm nữa
 
 void Doctor::set_data() {
         id_doctor = set_id++;
@@ -41,7 +15,7 @@ void Doctor::set_data() {
         cout << "Doctor has ID: " << id_doctor << " password: " << password << endl;
     }
 
-void Doctor::display() {
+void Doctor::display() const {
         cout << "Doctor ID: " << id_doctor << ", ";
         Person::display();
         cout << ", Experience Years: " << experience_year << endl;

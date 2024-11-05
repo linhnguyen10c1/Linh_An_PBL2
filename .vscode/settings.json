@@ -57,11 +57,12 @@
   "C_Cpp_Runner.useLinkTimeOptimization": false,
   "C_Cpp_Runner.msvcSecureNoWarnings": false,
   "files.associations": {
-    "Makefile": "bibtex",
+    "Makefile": "makefile",
     "text_encoding": "cpp",
     "thread": "cpp",
     "iosfwd": "cpp",
     "iostream": "cpp",
-    "string": "cpp"
+    "string": "cpp",
+    "*.tcc": "cpp"
   }
 }

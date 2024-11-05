@@ -1,15 +1,10 @@
 #include <iostream>
-#include "admin.cpp"
-#include "linklist.cpp"
-#include "doctor.cpp"
+#include "admin.h"
+#include "linklist.h"
+#include "doctor.h"
+#include "patient.h"
+#include "medicine.h"
 using namespace std;
-
-template <typename T>
-bool is_exist_in_file(long long ID, string password, const string& filename){
-  LinkedList<T> list;
-  read_data_from_file(list, filename);
-  return list.search(ID, password);
-}
 
 template <typename T>
 void module_menu_admin(LinkedList<T>& list,const string& filename){
@@ -21,7 +16,7 @@ void module_menu_admin(LinkedList<T>& list,const string& filename){
          << "2. Display list objects"<< endl
          << "3. Search an object" << endl 
 		     << "4. Update an object"<< endl
-         << "5. Delete an object" << endl
+         << "5. Delete--Recover an object" << endl
          << "6. Exit" << endl;
 
 		cout << "Choose an option: ";
@@ -52,18 +47,23 @@ void module_menu_admin(LinkedList<T>& list,const string& filename){
 				long long id;
 				cout << "Enter ID you want update: ";
 				cin  >> id;
+				cin.ignore();
 				list.update(id);
 				write_data_to_file(list,filename);
 				break;
 			}
 			case 5:{
+				int x;
+				cout << "1. Delete\n"
+				     << "2. Recover\n";
+				cout << "Your option: ";
+        cin >> x;
 				long long id;
-				cout << "Enter ID you want delete: ";
+				cout << "Enter ID you want: ";
 				cin >> id;
-				list.remove(id);
+				cin.ignore();
+				list.remove_recover(id,x);
 				write_data_to_file(list,filename);
-				// but when delete a doctor, but doctor have data
-				// in another file? how solve problem
 				break;
 			}
 			case 6: {
@@ -75,9 +75,9 @@ void module_menu_admin(LinkedList<T>& list,const string& filename){
 
 void menu(int role){
   if(role == 1){
-  //LinkedList<Patient> patient_list;
+   LinkedList<Patient> patient_list;
    LinkedList<Doctor> doctor_list;
-	//Link_list<Medicine> medicine_list;
+	 LinkedList<Medicine> medicine_list;
 	int choice;
 	while(choice!=4){
 		cout<<"1. Manage doctors"<< endl<<"2. Manage patients"<< endl << "3. Manage medicines "<<endl<<"4. exit"<<endl  ;
@@ -89,10 +89,10 @@ void menu(int role){
 				 module_menu_admin(doctor_list,"doctors.txt");
 				break;
 			case 2:
-				//module_menu(patient_list,"patients.txt");
+				 module_menu_admin(patient_list,"patients.txt");
 				break;
 			case 3:
-				//module_menu(medicine_list,"medicines.txt");
+				 module_menu_admin(medicine_list,"medicines.txt");
 				break;
 			case 4: 
 				break;
@@ -101,12 +101,19 @@ void menu(int role){
   }
 
   else if(role == 2){
-
+   
   }
 
   else if(role == 3){
 
   }
+}
+
+template <typename T>
+bool is_exist_in_file(long long ID, string password, const string& filename){
+  LinkedList<T> list;
+  read_data_from_file(list, filename);
+  return list.search(ID, password);
 }
 
 void login()

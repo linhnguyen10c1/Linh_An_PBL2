@@ -73,13 +73,17 @@ void module_menu_admin(LinkedList<T>& list,const string& filename){
 	} while(choice != 6);
 }
 
+void module_menu_manage_information(){
+	
+}
+
 void menu(int role){
   if(role == 1){
    LinkedList<Patient> patient_list;
    LinkedList<Doctor> doctor_list;
 	 LinkedList<Medicine> medicine_list;
 	int choice;
-	while(choice!=4){
+	while(choice!= 4){
 		cout<<"1. Manage doctors"<< endl<<"2. Manage patients"<< endl << "3. Manage medicines "<<endl<<"4. exit"<<endl  ;
 		cout << "Choose an option: ";
 		cin>>choice;
@@ -101,11 +105,33 @@ void menu(int role){
   }
 
   else if(role == 2){
-   
+	 int choice;
+   while(choice != 0){
+   cout << "1. Manage your information\n"
+	      << "2. Manage medical record\n"
+				<< "3. Checking\n"
+        << "4. Prescription\n"
+				<< "5. Appointment\n"
+        << "0. Exit\n";
+
+		cout << "Choose an option: ";
+		cin >> choice;
+		cin.ignore();
   }
+	}
 
   else if(role == 3){
-
+    int choice;
+		while(choice != 0){
+			cout << "1. Manage your information\n"
+			     << "2. Payment\n"
+					 << "3. Medical Record\n"
+					 << "4. Appointment\n"
+					 << "5. Exit\n";
+		}
+		cout << "Choose an option: ";
+		cin >> choice;
+		cin.ignore();
   }
 }
 

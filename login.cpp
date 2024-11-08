@@ -73,18 +73,18 @@ void module_menu_admin(LinkedList<T>& list,const string& filename){
 	} while(choice != 6);
 }
 
-void module_menu_manage_information(){
-	
-}
-
-void menu(int role){
-  if(role == 1){
+void menu_admin(){
    LinkedList<Patient> patient_list;
    LinkedList<Doctor> doctor_list;
 	 LinkedList<Medicine> medicine_list;
 	int choice;
 	while(choice!= 4){
-		cout<<"1. Manage doctors"<< endl<<"2. Manage patients"<< endl << "3. Manage medicines "<<endl<<"4. exit"<<endl  ;
+		cout<< "1. Manage doctors"<< endl
+		    << "2. Manage patients"<< endl
+			  << "3. Manage medicines "<<endl
+				// mở rộng sau
+				<< "4. Statistic (mở rộng sau)" << endl 
+				<< "0. exit"<< endl;
 		cout << "Choose an option: ";
 		cin>>choice;
 		cin.ignore();
@@ -100,39 +100,110 @@ void menu(int role){
 				break;
 			case 4: 
 				break;
+			case 0: 
+			  break;
 		}
 	}
   }
 
-  else if(role == 2){
-	 int choice;
-   while(choice != 0){
-   cout << "1. Manage your information\n"
-	      << "2. Manage medical record\n"
-				<< "3. Checking\n"
-        << "4. Prescription\n"
-				<< "5. Appointment\n"
-        << "0. Exit\n";
+template<typename T>
+void module_menu_manage_personal_information(long long ID, LinkedList<T>& list, const string& filename){
+      read_data_from_file(list, filename);
+			int choice;
+			do{
+         cout << "1. Display your information" << endl
+				      << "2. Update your information" << endl
+							<< "0. Exit" << endl;
+				 cout << "Choose your option: ";
+				 cin >> choice;
+				 cin.ignore();
+				 switch(choice){
+					case 1:{
+				    list.search(ID);
+				    break;
+					}
+					case 2:{
+            list.update(ID);
+				    write_data_to_file(list,filename);
+						break;
+					}
+					case 0: {
 
-		cout << "Choose an option: ";
+					}
+				 }
+
+			}while(choice != 0);
+}
+
+void menu_doctor(long long ID){
+  LinkedList<Doctor> doctor_list;
+	int choice;
+	while(choice != 0){
+		cout << "1. Manage your information" << endl
+		     << "2. Manage medical record" << endl
+				 << "3. Check" << endl
+				 << "4. Prescription" << endl
+				 << "5. Appointment" << endl
+				 << "0. Exit" << endl;
+		cout << "Choose your option: ";
 		cin >> choice;
 		cin.ignore();
-  }
-	}
-
-  else if(role == 3){
-    int choice;
-		while(choice != 0){
-			cout << "1. Manage your information\n"
-			     << "2. Payment\n"
-					 << "3. Medical Record\n"
-					 << "4. Appointment\n"
-					 << "5. Exit\n";
+		switch(choice){
+		 case 1:{
+      module_menu_manage_personal_information(ID, doctor_list, "doctors.txt");
+			break;
 		}
-		cout << "Choose an option: ";
+		case 2: {
+
+		}
+		case 3: {
+
+		}
+		case 4: {
+
+		}
+		case 5: {
+
+		}
+		case 0: {
+
+		}
+		}
+	}
+}
+
+void menu_patient(long long ID){
+  LinkedList<Patient> patient_list;
+	int choice;
+	while( choice != 0){
+		cout << "1. Manage your information" << endl
+		     << "2. Medical Record" << endl
+				 << "3. Appointment" << endl
+				 << "4. Payment" << endl
+				 << "0. Exit" << endl;
+
+		cout << "Choose your option: ";
 		cin >> choice;
 		cin.ignore();
-  }
+		switch(choice){
+			case 1:{
+				module_menu_manage_personal_information(ID, patient_list, "patients.txt");
+			}
+			case 2:{
+
+			}
+			case 3: {
+
+			}
+			case 4: {
+
+			}
+			case 0: {
+
+			}
+		}
+
+	}
 }
 
 template <typename T>
@@ -165,7 +236,7 @@ void login()
     case 1:
     {
       if (is_exist_in_file<Admin>(ID, password,"admins.txt"))
-        menu(1);
+        menu_admin();
       else
         break;
       break;
@@ -173,19 +244,18 @@ void login()
     case 2:
     {
       if (is_exist_in_file<Doctor>(ID, password, "doctors.txt"))
-        menu(2);
-
+        menu_doctor(ID);
       else
         break;
       break;
     }
     case 3:
     {
-      // if (is_exist_in_file<Patient>(ID, password))
-      //   menu(3);
-      // else
-      //   break;
-      // break;
+      if (is_exist_in_file<Patient>(ID, password, "patients.txt"))
+        menu_patient(ID);
+      else
+        break;
+      break;
     }
     case 4:{
 

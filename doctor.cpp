@@ -24,7 +24,8 @@ void Doctor::display() const {
         Person::display();
         cout << ", Experience Years: " << experience_year
              << ", Specialization: " << specialization 
-             << ", Room: " << room << endl;
+             << ", Room: " << room
+             << ", Patient Waiting: " << patients_waiting << endl;
     }
     
 void Doctor::read_a_object_from_file(const string &line) {
@@ -45,7 +46,8 @@ void Doctor::read_a_object_from_file(const string &line) {
     getline(ss, gender, ',');
     getline(ss, phone, ',');
     getline(ss, address, ',');
-
+    getline(ss, item, ',');
+    patients_waiting = stoi(item);
     // Read and convert experience_year
     getline(ss, password, ',');
     getline(ss, item, ',');
@@ -64,6 +66,7 @@ void Doctor::write_a_object_to_file(ofstream &file) {
              << gender << "," 
              << phone << "," 
              << address << "," 
+             << patients_waiting << ","  
              << password << ","
              << (is_delete ? "1" : "0")
              << endl;

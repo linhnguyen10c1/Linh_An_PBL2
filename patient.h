@@ -16,6 +16,7 @@ public:
 
     long long get_id() const { return id_patient; }
     string get_password() const {return password; }
+    bool get_is_deleted() const {return is_delete;}
 };
 
 #endif

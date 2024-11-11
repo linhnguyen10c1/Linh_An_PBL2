@@ -14,6 +14,9 @@ class Record {
 private:
     long long id_checking;
     long long id_patient;
+    long long id_doctor;
+    string room;
+    string status_checking = "waiting";
     string start_day = "0";
     string end_day ="0";
     double heart = 0;
@@ -22,6 +25,7 @@ private:
     string diagnosis = "0";
     string status_patient = "0";
     string final_result = "0";
+    string doctor_note = "0";
     string follow_up_appointment = "0";
     double total_cost = 0;
     double status_payment = -1;

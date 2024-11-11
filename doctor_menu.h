@@ -80,6 +80,8 @@ void module_menu_doctor(long long ID, LinkedList<Record> &record_list){
 		     << "2. Testing" << endl
 	}
 }
+
+
 void menu_doctor(long long ID){
   LinkedList<Doctor> doctor_list;
 	LinkedList<Record> record_list;
@@ -97,26 +99,16 @@ void menu_doctor(long long ID){
 			break;
 		}
 		case 2: {
-			read_data_from_file(record_list, "records.txt");
-			
-        // 1. display record
-				// 2. new record
-				//    - khám tổng quát
-				//    - Test_lab điều hướng đến bác sĩ khám
-			  //    - Đơn thu
+			// nếu là bác sĩ lâm sàng
+			if(doctor_list.check_specialization(ID) == "General"){
+				Menu_general_doctor();
+			}
+			else{
+				Menu_detail_doctor();
+			}
+			// nếu là bác sĩ cận lâm sàng
+         
 		} 
-		case 3: {
-
-		}
-		case 4: {
-
-		}
-		case 5: {
-
-		}
-		case 0: {
-
-		}
 		}
 	}
 }

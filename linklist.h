@@ -29,9 +29,11 @@ public:
     void remove_recover(long long id, int x); 
     Node<T>* get_head() const { return head; }
     void search(long long id) const;
+    int check(long long id) const;
     // search cho phone, name
     void search_record_patient(long long id) const;
     void search(string name) const;
+    string check_specialization(long long id) const;
     void update(long long id);
     // check xem tồn tại hay không
     int check(long long id, string password);
@@ -104,6 +106,24 @@ void LinkedList<T>::search(long long id) const{
         cout << "Item don't exsit" << endl;
     }
 
+template<typename T>
+int LinkedList<T>::check(long long id) const{
+        Node<T>* current = head;
+        if(current == nullptr){
+            cout << "List empty" << endl;
+            return 0;
+        }
+        while (current) {
+            if(current->data.get_id() == id && current->data.get_is_deleted() == false){
+                current->data.display();
+                return 1;
+            }
+            current = current->next;
+        }
+        cout << "Item don't exsit" << endl;
+        return 0;
+    }
+
 template <typename T>
 void LinkedList<T>::search_record_patient(long long id) const{
         Node<T>* current = head;
@@ -122,15 +142,28 @@ void LinkedList<T>::search_record_patient(long long id) const{
 
 // search cho phone, name
 template <typename T>
-void LinkedList<T>::search(string name) const{
+// void LinkedList<T>::search(string name) const{
+//          Node<T>* current = head;
+//          if(current == nullptr){
+//             cout << "List empty" << endl;
+//             return;
+//          }
+//         while (current) {
+//             if(current->data.get_name()== name || current->data.get_phone() == name){
+//             current->data.display();
+//             }
+//             current = current->next;
+//         }
+//     }
+string LinkedList<T>::check_specialization(long long ID) const{
          Node<T>* current = head;
          if(current == nullptr){
             cout << "List empty" << endl;
             return;
          }
         while (current) {
-            if(current->data.get_name()== name || current->data.get_phone() == name){
-            current->data.display();
+            if(current->data.get_id() == ID && current->data.get_is_delete() == false){
+                return current->data.get_specialization();
             }
             current = current->next;
         }

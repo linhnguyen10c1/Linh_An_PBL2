@@ -14,7 +14,7 @@ struct Node {
     T data;
     Node* next;
 };
-
+// tình trạng mức độ bệnh, 
 // Base class for linked list operations
 template <typename T>
 class LinkedList {
@@ -30,10 +30,11 @@ public:
     Node<T>* get_head() const { return head; }
     void search(long long id) const;
     // search cho phone, name
+    void search_record_patient(long long id) const;
     void search(string name) const;
     void update(long long id);
     // check xem tồn tại hay không
-    int search(long long id, string password);
+    int check(long long id, string password);
 };
 
 template <typename T>
@@ -103,6 +104,22 @@ void LinkedList<T>::search(long long id) const{
         cout << "Item don't exsit" << endl;
     }
 
+template <typename T>
+void LinkedList<T>::search_record_patient(long long id) const{
+        Node<T>* current = head;
+        if(current == nullptr){
+            cout << "List empty" << endl;
+            return;
+        }
+        while (current) {
+            if(current->data.get_id_patient() == id){
+                current->data.display();
+            }
+            current = current->next;
+        }
+        cout << "Item don't exsit" << endl;
+    }
+
 // search cho phone, name
 template <typename T>
 void LinkedList<T>::search(string name) const{
@@ -121,7 +138,7 @@ void LinkedList<T>::search(string name) const{
 
 // check xem co ton tai hay ko
 template <typename T>
-int LinkedList<T>::search(long long id, string password){
+int LinkedList<T>::check(long long id, string password){
     Node<T>* current = head;
     if(current == nullptr){
         cout << "List empty" << endl;

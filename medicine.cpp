@@ -6,6 +6,7 @@ void Medicine::set_data()
 {
     id_medicine = set_id++;
     update_data();
+    quantity_current = quantity_past;
 }
 
 void Medicine::display() const
@@ -15,8 +16,10 @@ void Medicine::display() const
          << ", Type: " << type
          << ", NSX: " << NSX
          << ", HSD (month): " << HSD
-         << ", Quantity: " << quantity_past
-         << ", Cost: " << cost << endl;
+         << ", Quantity_past: " << quantity_past
+         << ", Quantity_current: " << quantity_current
+         << ", Cost: " << cost << endl
+         << ", Is_deleted: " << is_delete << endl;
 }
 
 void Medicine::read_a_object_from_file(const string &line) {
@@ -36,7 +39,9 @@ void Medicine::read_a_object_from_file(const string &line) {
     getline(ss, item, ',');
     quantity_past = stoi(item);
     getline(ss, item, ',');
-    cost = stoi(item);
+    quantity_current = stoi(item);
+    getline(ss, item, ',');
+    cost = stod(item);
     getline(ss, item, ',');
     is_delete = (item == "1");
 
@@ -50,6 +55,7 @@ void Medicine::write_a_object_to_file(ofstream &file) {
              << NSX << "," 
              << HSD << "," 
              << quantity_past << "," 
+             << quantity_current << ","
              << cost << ","
              << (is_delete ? "1" : "0")
              << endl;

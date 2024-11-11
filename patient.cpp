@@ -7,6 +7,9 @@ void Patient::set_data()
 {
     id_patient = set_id++;
     Person::set_person();
+    cin.ignore();
+    cout << "Enter phone family: ";
+    getline(cin, phone_family);
     cout << "Patient has ID: " << id_patient << " ,password: " << password << endl;
 }
 
@@ -14,6 +17,7 @@ void Patient::display() const
 {
     cout << "Patient ID: " << id_patient << ", ";
     Person::display();
+    cout << "Phone Family: " << phone_family;
     cout << endl;
 }
 
@@ -31,6 +35,7 @@ void Patient::read_a_object_from_file(const string &line)
     getline(ss, birthday, ',');
     getline(ss, gender, ',');
     getline(ss, phone, ',');
+    getline(ss, phone_family, ',');
     getline(ss, address, ',');
     getline(ss, password, ',');
     getline(ss, item, ',');
@@ -44,6 +49,7 @@ void Patient::write_a_object_to_file(ofstream &file) {
              << birthday << "," 
              << gender << "," 
              << phone << "," 
+             << phone_family << ","
              << address << "," 
              << password << ","
              << (is_delete ? "1" : "0")

@@ -5,6 +5,7 @@ class Patient : public Person
 {
 private:
     long long id_patient;
+    string phone_family;
 
 public:
     static long long set_id;

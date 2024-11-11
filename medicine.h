@@ -14,6 +14,7 @@ private:
     long long id_medicine;
     string name;
     int quantity_past;
+    int quantity_current;
     double cost;
     string NSX;
     int HSD; // month

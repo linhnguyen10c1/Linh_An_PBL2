@@ -6,6 +6,8 @@ class Doctor : public Person {
 private:
 
     long long id_doctor;
+    string specialization;
+    string room;
     int experience_year;
 
 public:

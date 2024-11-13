@@ -31,7 +31,7 @@ void Record::set_data() {
     Node<Doctor>* current = doctor_list.get_head();
     while (current != nullptr) {
         Doctor& doctor = current->data;
-        if (doctor.get_waiting() < min_waiting && doctor.get_specialization() == "General") {
+        if (doctor.get_waiting() < min_waiting && doctor.get_specialization() == "General" && doctor.get_is_delete() == false) {
             min_waiting = doctor.get_waiting();
             assigned_doctor = &doctor;
         }
@@ -57,7 +57,7 @@ void Record::set_data() {
 }
 
 
-void Record::update_data_general_doctor(long long id_doctor){
+void Record::update_data_general_doctor(long long id_doctor, LinkedList<Doctor> &doctor_list){
     // Set the current date and time for start_day
     double x = 0;
     time_t now = time(0);
@@ -69,12 +69,11 @@ void Record::update_data_general_doctor(long long id_doctor){
                 to_string(ltm->tm_min) + ":" +
                 to_string(ltm->tm_sec);
     status_checking = "processing";
-    LinkedList<Doctor> doctor_list;
-    read_data_from_file(doctor_list, "doctors.txt");
     x = doctor_list.get_cost(id_doctor);
     write_data_to_file(doctor_list, "doctors.txt");
 
     update_total_cost(x);
+    update_status_payment_doctor();
 
     cout << "Heart Rate: ";
     cin >> heart;
@@ -93,7 +92,24 @@ void Record::update_data_general_doctor(long long id_doctor){
     cout << "Note: ";
     getline(cin, doctor_note);
 
+}
+
+void Record::update_result_record_doctor(){
+    status_checking = "completing";
+    cout << "Final result: ";
+    getline(cin,final_result);
+    cout << "Note: ";
+    getline(cin, doctor_note);
+    time_t now = time(0);
+    tm *ltm = localtime(&now);
+    end_day = to_string(ltm->tm_mday) + "-" +
+                to_string(1 + ltm->tm_mon) + "-" +
+                to_string(1900 + ltm->tm_year) + " " +
+                to_string(ltm->tm_hour) + ":" +
+                to_string(ltm->tm_min) + ":" +
+                to_string(ltm->tm_sec);
     
+
 }
 
 void Record::update_data(){

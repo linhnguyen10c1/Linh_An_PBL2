@@ -1,6 +1,6 @@
 #ifndef LINKLIST_H
 #define LINKLIST_H
-
+#include "doctor.h"
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -39,8 +39,10 @@ public:
     int check(long long id, string password);
 
     void display_list_waiting(long long id_doctor) const;
-    void update_from_general_doctor(long long id_record, long long id_doctor);
-    double  get_cost(long long ID) const;
+    void update_from_general_doctor(long long id_record, long long id_doctor, LinkedList<Doctor> &doctor_list);
+    double  get_cost(long long ID_doctor) const;
+    void update_result_record_from_doctor(long long id_record);
+    void display_list_testing(long long ID_checking) const;
 };
 
 template <typename T>
@@ -244,7 +246,7 @@ void LinkedList<T>::update(long long id) {
     cout << "Item don't exist" << endl;
 }
 template <typename T>
-void LinkedList<T>::update_from_general_doctor(long long id_record, long long id_doctor) {
+void LinkedList<T>::update_from_general_doctor(long long id_record, long long id_doctor, LinkedList<Doctor>& doctor_list) {
        Node<T>* current = head;
     if(current == nullptr){
         cout << "List empty" << endl;
@@ -253,7 +255,24 @@ void LinkedList<T>::update_from_general_doctor(long long id_record, long long id
     while (current != nullptr) {
         if (current->data.get_id() == id_record) {
             current->data.display();
-            current->data.update_data_general_doctor(id_doctor);
+            current->data.update_data_general_doctor(id_doctor, doctor_list);
+            return;
+        }
+        current = current->next;
+    }
+    cout << "Item don't exist" << endl;
+}
+template <typename T>
+void LinkedList<T>::update_result_record_from_doctor(long long id_record){
+           Node<T>* current = head;
+    if(current == nullptr){
+        cout << "List empty" << endl;
+        return;
+    }
+    while (current != nullptr) {
+        if (current->data.get_id() == id_record) {
+            current->data.display();
+            current->data.update_result_record_doctor();
             return;
         }
         current = current->next;
@@ -273,6 +292,22 @@ void LinkedList<T>::display_list_waiting(long long id_doctor) const{
                                        && current->data.get_status_checking() == "waiting" ){
             cout << "ID Checking: " << current->data.get_id()
                  << " ID Patient: " << current->data.get_id_patient() << endl;
+        }
+        current = current->next;
+    }
+
+}
+
+template <typename T>
+void LinkedList<T>::display_list_testing(long long ID_checking) const{
+    Node<T> *current = head;
+    if(current == nullptr){
+        cout << "List empty" << endl;
+        return;
+    }
+    while(current != nullptr){
+        if(current->data.get_id_checking() == ID_checking && current->data.get_status_testing() == "completing" ){
+                   current->data.display();
         }
         current = current->next;
     }

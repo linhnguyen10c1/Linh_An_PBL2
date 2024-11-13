@@ -1,6 +1,7 @@
 #ifndef RECORD_H
 #define RECORD_H
 
+#include "linklist.h"
 #include <iostream>
 #include <string>
 #include <algorithm>
@@ -35,10 +36,14 @@ public:
     static long long set_id;
     void set_data();
     void update_data();
-    void update_data_general_doctor(long long id_doctor);
+    void update_data_general_doctor(long long id_doctor, LinkedList<Doctor> &doctor_list);
     void update_total_cost(double x){
         total_cost += x;
     }
+    void update_status_payment_doctor(){
+        status_payment = -total_cost;
+    }
+    void update_result_record_doctor();
     void update_is_delete(int x);
     void display() const;
     long long get_id() const { return id_checking; }
@@ -50,4 +55,4 @@ public:
     void write_a_object_to_file(ofstream &file);
 };
 
-#endif // RECORD_H
+#endif 

@@ -3,6 +3,7 @@
 #include "linklist.h"
 #include "doctor.h"
 #include "record.h"
+#include "testing_lap.h"
 template<typename T>
 void module_menu_manage_personal_information(long long ID, LinkedList<T>& list, const string& filename){
       read_data_from_file(list, filename);
@@ -32,15 +33,7 @@ void module_menu_manage_personal_information(long long ID, LinkedList<T>& list, 
 			}while(choice != 0);
 }
 
-				// cout << "0. Result testing" << endl;
-				// cout << "1. X-ray" << endl
-				//      << "2. Endoscopy" << endl
-				// 		 << "3. Ultrasound" << endl
-				// 		 << "4. Blood + Urine test" << endl
-				// 		 << "5. ECG" << endl
-				// 		 << "6. Exit" << endl;
-
-void Menu_general_doctor(long long ID_doctor, LinkedList<Record> &record_list){
+void Menu_general_doctor(long long ID_doctor, LinkedList<Record> &record_list, LinkedList<Doctor> &doctor_list){
 	  int choice;
 		do{
     cout << "1. Waiting List" << endl
@@ -72,17 +65,94 @@ void Menu_general_doctor(long long ID_doctor, LinkedList<Record> &record_list){
 					 do{
 					 cout << "1. Checking general" << endl
 					      << "2. Checking Detail" << endl
-								<< "3. Prescription" << endl
-								<< "4. Appointment" << endl
+								<< "3. Update result" << endl
+								<< "4. Prescription" << endl
+								<< "5. Appointment" << endl
 								<< "0. Exit" << endl;
 						cout << "Choose your choice: ";
 						cin >> choice;
 						cin.ignore();
 						switch(choice){
 							case 1:{
-								record_list.update_from_general_doctor(ID_checking, ID_doctor);
+								record_list.update_from_general_doctor(ID_checking, ID_doctor, doctor_list);
 								write_data_to_file(record_list, "records.txt");
 								break;
+							}
+							case 2:{
+					    LinkedList<Testing> testing_list;
+							read_data_from_file(testing_list, "testings.txt");
+							Testing item;
+                int choice;
+								do{
+			 cout <<  "0. Result testing" << endl;
+			 cout <<  "1. X-ray" << endl
+				     << "2. Endoscopy" << endl
+						 << "3. Ultrasound" << endl
+						 << "4. Blood and Urine Test" << endl
+						 << "5. Electrocardiogram" << endl
+						 << "6. Exit" << endl;
+			cout << "Choose your choice: ";
+			cin >> choice;
+			cin.ignore();
+
+						 switch(choice){
+							case 0: {
+                 testing_list.display_list_testing(ID_checking);
+								 break;
+							}
+							case 1:{
+                 item.set_data(ID_checking, "X-ray");
+								 testing_list.add(item);
+								 write_data_to_file(testing_list, "testings.txt");
+								 break;
+							}
+							case 2: {
+								 item.set_data(ID_checking, "Endoscopy");
+								 testing_list.add(item);
+								 write_data_to_file(testing_list, "testings.txt");
+								 break;
+
+							}
+							case 3: {
+                 item.set_data(ID_checking, "Ultrasound");
+								 testing_list.add(item);
+								 write_data_to_file(testing_list, "testings.txt");
+								 break;
+							}
+							case 4: {
+                 item.set_data(ID_checking, "Blood and Urine Test");
+								 testing_list.add(item);
+								 write_data_to_file(testing_list, "testings.txt");
+								 break;
+							}
+							case 5:{
+                 item.set_data(ID_checking, "Electrocardiogram");
+								 testing_list.add(item);
+								 write_data_to_file(testing_list, "testings.txt");
+								 break;
+							}
+							
+							case 6: {
+
+							}
+	
+						 }
+            
+								}while(choice != 6);
+							}
+							case 3: {
+                record_list.update_result_record_from_doctor(ID_checking);
+								write_data_to_file(record_list, "records.txt");
+								break;
+							}
+							case 4:{
+
+							}
+							case 5: {
+
+							}
+							case 0: {
+
 							}
 						}
 					 } while(choice != 0);
@@ -118,7 +188,7 @@ void menu_doctor(long long ID){
 		case 2: {
 			// nếu là bác sĩ lâm sàng
 			if(doctor_list.check_specialization(ID) == 1){
-				Menu_general_doctor(ID, record_list);
+				Menu_general_doctor(ID, record_list, doctor_list);
 			}
 			else if(doctor_list.check_specialization(ID) == 2){
 				Menu_detail_doctor(ID, record_list);

@@ -64,6 +64,9 @@
     "iostream": "cpp",
     "string": "cpp",
     "*.tcc": "cpp",
-    "ostream": "cpp"
+    "ostream": "cpp",
+    "barrier": "cpp",
+    "mutex": "cpp",
+    "stop_token": "cpp"
   }
 }

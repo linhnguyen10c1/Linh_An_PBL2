@@ -16,6 +16,9 @@ void Doctor::set_data() {
         getline(cin, specialization);
         cout << "Enter room: ";
         getline(cin, room);
+        cout << "Enter price checking: ";
+        cin >> price;
+        cin.ignore();
         cout << "Doctor has ID: " << id_doctor << " password: " << password << endl;
     }
 
@@ -25,7 +28,8 @@ void Doctor::display() const {
         cout << ", Experience Years: " << experience_year
              << ", Specialization: " << specialization 
              << ", Room: " << room
-             << ", Patient Waiting: " << patients_waiting << endl;
+             << ", Patient Waiting: " << patients_waiting
+             << ", Price: " << price << endl;
     }
     
 void Doctor::read_a_object_from_file(const string &line) {
@@ -42,6 +46,8 @@ void Doctor::read_a_object_from_file(const string &line) {
     getline(ss, room , ',');
     getline(ss, item, ',');
     experience_year = stoi(item);
+    getline(ss, item, ',');
+    price = stod(item);
     getline(ss, birthday, ',');
     getline(ss, gender, ',');
     getline(ss, phone, ',');
@@ -62,6 +68,7 @@ void Doctor::write_a_object_to_file(ofstream &file) {
              << specialization << ","
              << room << ","
              << experience_year << ","
+             << price << ","
              << birthday << "," 
              << gender << "," 
              << phone << "," 

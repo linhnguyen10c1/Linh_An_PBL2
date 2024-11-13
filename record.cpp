@@ -54,16 +54,46 @@ void Record::set_data() {
         std::cerr << "Error: No doctors available." << std::endl;
     }
 
-     // Clear the input buffer before using getline
+}
+
+
+void Record::update_data_general_doctor(long long id_doctor){
     // Set the current date and time for start_day
-    // time_t now = time(0);
-    // tm *ltm = localtime(&now);
-    // start_day = to_string(ltm->tm_mday) + "-" +
-    //             to_string(1 + ltm->tm_mon) + "-" +
-    //             to_string(1900 + ltm->tm_year) + " " +
-    //             to_string(ltm->tm_hour) + ":" +
-    //             to_string(ltm->tm_min) + ":" +
-    //             to_string(ltm->tm_sec);
+    double x = 0;
+    time_t now = time(0);
+    tm *ltm = localtime(&now);
+    start_day = to_string(ltm->tm_mday) + "-" +
+                to_string(1 + ltm->tm_mon) + "-" +
+                to_string(1900 + ltm->tm_year) + " " +
+                to_string(ltm->tm_hour) + ":" +
+                to_string(ltm->tm_min) + ":" +
+                to_string(ltm->tm_sec);
+    status_checking = "processing";
+    LinkedList<Doctor> doctor_list;
+    read_data_from_file(doctor_list, "doctors.txt");
+    x = doctor_list.get_cost(id_doctor);
+    write_data_to_file(doctor_list, "doctors.txt");
+
+    update_total_cost(x);
+
+    cout << "Heart Rate: ";
+    cin >> heart;
+    cin.ignore();
+    cout << "Blood Pressure: ";
+    cin >> blood;
+    cin.ignore();
+    cout << "Symptom: ";
+    getline(cin, symptom);
+    cout << "Diagnosis: ";
+    getline(cin, diagnosis);
+    cout << "Patient Status: ";
+    getline(cin,status_patient);
+    cout << "Final result: ";
+    getline(cin, final_result);
+    cout << "Note: ";
+    getline(cin, doctor_note);
+
+    
 }
 
 void Record::update_data(){

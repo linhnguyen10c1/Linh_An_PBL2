@@ -32,11 +32,15 @@ public:
     int check(long long id) const;
     // search cho phone, name
     void search_record_patient(long long id) const;
-    void search(string name) const;
-    string check_specialization(long long id) const;
+    //void search(string name) const;
+    int check_specialization(long long id) const;
     void update(long long id);
     // check xem tồn tại hay không
     int check(long long id, string password);
+
+    void display_list_waiting(long long id_doctor) const;
+    void update_from_general_doctor(long long id_record, long long id_doctor);
+    double  get_cost(long long ID) const;
 };
 
 template <typename T>
@@ -155,18 +159,38 @@ template <typename T>
 //             current = current->next;
 //         }
 //     }
-string LinkedList<T>::check_specialization(long long ID) const{
+int LinkedList<T>::check_specialization(long long ID) const{
          Node<T>* current = head;
          if(current == nullptr){
             cout << "List empty" << endl;
-            return;
+            return 0;
          }
         while (current) {
-            if(current->data.get_id() == ID && current->data.get_is_delete() == false){
-                return current->data.get_specialization();
+            if(current->data.get_id() == ID && current->data.get_is_delete() == false
+                                      && current->data.get_specialization() == "General"){
+                return 1;
             }
             current = current->next;
         }
+        return 2;
+    }
+
+template <typename T>
+double LinkedList<T>::get_cost(long long ID) const{
+         Node<T>* current = head;
+         if(current == nullptr){
+            cout << "List empty" << endl;
+            return 0;
+         }
+        while (current) {
+            if(current->data.get_id() == ID && current->data.get_is_delete() == false){
+                current->data.decreasing_waiting();
+                return current->data.get_price();
+            }
+            current = current->next;
+            
+        }
+        return 0;
     }
 
 // check xem co ton tai hay ko
@@ -219,7 +243,41 @@ void LinkedList<T>::update(long long id) {
     }
     cout << "Item don't exist" << endl;
 }
+template <typename T>
+void LinkedList<T>::update_from_general_doctor(long long id_record, long long id_doctor) {
+       Node<T>* current = head;
+    if(current == nullptr){
+        cout << "List empty" << endl;
+        return;
+    }
+    while (current != nullptr) {
+        if (current->data.get_id() == id_record) {
+            current->data.display();
+            current->data.update_data_general_doctor(id_doctor);
+            return;
+        }
+        current = current->next;
+    }
+    cout << "Item don't exist" << endl;
+}
 
+template <typename T>
+void LinkedList<T>::display_list_waiting(long long id_doctor) const{
+    Node<T> *current = head;
+    if(current == nullptr){
+        cout << "List empty" << endl;
+        return;
+    }
+    while(current != nullptr){
+        if(current->data.get_id_doctor() == id_doctor && current->data.get_is_delete() == false
+                                       && current->data.get_status_checking() == "waiting" ){
+            cout << "ID Checking: " << current->data.get_id()
+                 << " ID Patient: " << current->data.get_id_patient() << endl;
+        }
+        current = current->next;
+    }
+
+}
 
 template <typename T>
 void read_data_from_file(LinkedList<T>& list, const string& filename) {

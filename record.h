@@ -35,10 +35,17 @@ public:
     static long long set_id;
     void set_data();
     void update_data();
+    void update_data_general_doctor(long long id_doctor);
+    void update_total_cost(double x){
+        total_cost += x;
+    }
     void update_is_delete(int x);
     void display() const;
     long long get_id() const { return id_checking; }
     long long get_id_patient() const { return id_patient; }
+    long long get_id_doctor() const {return id_doctor;}
+    bool get_is_delete() const{return is_delete;}
+    string get_status_checking() const{return status_checking;}
     void read_a_object_from_file(const string &line);
     void write_a_object_to_file(ofstream &file);
 };

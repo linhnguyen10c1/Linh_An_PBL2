@@ -3,7 +3,7 @@
 #include "admin.h"
 #include "linklist.h"
 #include "doctor.h"
-//#include "doctor_menu.h"
+#include "doctor_menu.h"
 #include "patient.h"
 //#include "patient_menu.h"
 #include "medicine.h"
@@ -49,8 +49,7 @@ void login()
     case 2:
     {
       if (is_exist_in_file<Doctor>(ID, password, "doctors.txt"))
-       // menu_doctor(ID);
-       int x = 1;
+        menu_doctor(ID);
       else
         break;
       break;

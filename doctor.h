@@ -10,6 +10,7 @@ private:
     string room;
     int experience_year;
     int patients_waiting = 0;
+    double price;
 
 public:
     static long long set_id;
@@ -17,7 +18,7 @@ public:
     void display() const;
 
     void increment_waiting() { ++patients_waiting; }  // Tăng số lượng bệnh nhân chờ thêm 1
-    void decreasing_waiting(){--patients_waiting;}
+    void decreasing_waiting(){if(patients_waiting > 0)--patients_waiting;}
     void reset_waiting() { patients_waiting = 0; }    // Đặt lại số bệnh nhân đang chờ
     int get_waiting() const { return patients_waiting; }
 
@@ -28,6 +29,7 @@ public:
     string get_password() const{return password;}
     string get_specialization()const{return specialization;}
     string get_room()const{return room;}
+    double get_price()const{return price;}
 
 };
 

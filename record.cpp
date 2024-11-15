@@ -57,9 +57,8 @@ void Record::set_data() {
 }
 
 
-void Record::update_data_general_doctor(long long id_doctor, LinkedList<Doctor> &doctor_list){
+void Record::update_data_general_doctor(double x){
     // Set the current date and time for start_day
-    double x = 0;
     time_t now = time(0);
     tm *ltm = localtime(&now);
     start_day = to_string(ltm->tm_mday) + "-" +
@@ -69,9 +68,6 @@ void Record::update_data_general_doctor(long long id_doctor, LinkedList<Doctor> 
                 to_string(ltm->tm_min) + ":" +
                 to_string(ltm->tm_sec);
     status_checking = "processing";
-    x = doctor_list.get_cost(id_doctor);
-    write_data_to_file(doctor_list, "doctors.txt");
-
     update_total_cost(x);
     update_status_payment_doctor();
 

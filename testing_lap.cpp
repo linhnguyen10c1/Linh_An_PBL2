@@ -11,32 +11,6 @@ void Testing::display() const{
        << "Cost: " << cost << endl;
 }
 
-// void Testing::set_data(long long id_record, const string &type){
-//   id_checking = id_record;
-//   this->type = type;
-//   LinkedList<Doctor> doctor_list;
-//   read_data_from_file(doctor_list, "doctors.txt");
-    
-//     // Tìm bác sĩ có ít bệnh nhân đang chờ nhất
-//   Node<Doctor>* current = doctor_list.get_head();
-//     while (current != nullptr) {
-//         Doctor& doctor = current->data;
-//         if (doctor.get_specialization() == "type" && doctor.get_is_delete() == false) {
-//             doctor.increment_waiting();
-//             if(id_doctor1 == 0) id_doctor1 = doctor.get_id();
-//             else id_doctor2 = doctor.get_id();
-//             room = doctor.get_room();
-//             cost = doctor.get_price();
-//         }
-//         current = current->next;
-//     }
-  
-//         cout << "Assigned Doctor ID: " << id_doctor1 << ", " << id_doctor2 << endl;
-//         cout << "At room: " << room << endl;
-//         write_data_to_file(doctor_list, "doctors.txt");
-
-// }
-
 void Testing::set_data(long long id_record, const string &type) {
     id_checking = id_record;
     this->type = type;
@@ -53,8 +27,10 @@ void Testing::set_data(long long id_record, const string &type) {
         if (doctor.get_specialization() == type && !doctor.get_is_delete()) {
             if (id_doctor1 == 0) {
                 id_doctor1 = doctor.get_id();
+                doctor.increment_waiting();
             } else {
                 id_doctor2 = doctor.get_id();
+                doctor.increment_waiting();
             }
             room = doctor.get_room();
             cost = doctor.get_price();
@@ -70,7 +46,9 @@ void Testing::set_data(long long id_record, const string &type) {
 
 
 void Testing::update_data(){
-
+    cout << "Result testing: ";
+    getline(cin, result_testing);
+    status_testing = "completing";
 }
 
 void Testing::read_a_object_from_file(const string &line) {

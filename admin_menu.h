@@ -78,7 +78,7 @@ void menu_admin(){
 	 LinkedList<Medicine> medicine_list;
    LinkedList<Record> record_list;
 	int choice;
-	while(choice!= 4){
+	  do{
 		cout<< "1. Manage doctors"<< endl
 		    << "2. Manage patients"<< endl
 			  << "3. Manage medicines "<<endl
@@ -105,7 +105,7 @@ void menu_admin(){
 			case 0: 
 			  break;
 		}
-	}
+	}while(choice != 0);
   }
 
   #endif 

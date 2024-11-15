@@ -25,6 +25,7 @@ private:
     string symptom = "0";
     string diagnosis = "0";
     string status_patient = "0";
+    bool testing_or_not = false;
     string final_result = "0";
     string doctor_note = "0";
     string follow_up_appointment = "0";
@@ -36,7 +37,7 @@ public:
     static long long set_id;
     void set_data();
     void update_data();
-    void update_data_general_doctor(long long id_doctor, LinkedList<Doctor> &doctor_list);
+    void update_data_general_doctor(double x);
     void update_total_cost(double x){
         total_cost += x;
     }

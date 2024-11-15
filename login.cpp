@@ -31,12 +31,14 @@ void login()
          << "2. You are doctor\n"
          << "3. You are patient\n"
          << "4. Exit\n";
+    cout << "-----------------" << endl;
     cout << "Choose your option: ";
     cin >> role;
     cout << "Enter your ID: ";
     cin >> ID;
     cout << "Enter your password: ";
     cin >> password;
+    cin.ignore();
     switch (role)
     {
     case 1:
